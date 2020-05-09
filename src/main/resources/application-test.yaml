@@ -1,0 +1,86 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      max-active: 10
+      min-idle: 5
+      #配置获取连接等待超时的时间
+      max-wait: 6000
+      #检测连接是否有效的sql
+      validation-query: "select '1'"
+      validation-query-timeout: 2000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 600000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      remove-abandoned: true
+    master:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://rm-2ze6dvrqezp7j30g6zo.mysql.rds.aliyuncs.com:3306/qingchen?useUnicode=true&characterEncoding=utf8
+     username: wangchen
+     password: Kvalue_wangchen
+    slave:
+     driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://rm-2ze6dvrqezp7j30g6zo.mysql.rds.aliyuncs.com:3306/qingchen-slave?useUnicode=true&characterEncoding=utf8
+     username: wangchen
+     password: Kvalue_wangchen
+
+  redis:
+    # 连接工厂使用的数据库索引
+    database: 0
+    # Redis服务器主机
+    host: 127.0.0.1
+    # 登录redis服务器的密码
+    password:
+    # redis服务器端口
+    port: 6379
+    # 数据库连接超时时间 需要指明单位
+    timeout: 1s
+    lettuce:
+      pool:
+        # 池在给定时间可以分配的最大连接数。使用负值无限制
+        max-active: 1000
+        # 池中“空闲”连接的最大数量。使用负值表示无限数量的空闲连接。
+        max-idle: 500
+        # 目标为保持在池中的最小空闲连接数。这个设置只有在正面的情况下才有效果。
+        min-idle: 100
+        # # 等待可用连接的最大时间，负数为不限制
+        max-wait: 500ms
+  mail:
+    port: 587
+    host: smtp.qq.com
+    username: 271724646@qq.com
+    password:
+    default-encoding: UTF-8
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+        debug: true
+
+#mybatis的相关配置
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qingchen.demo.*.model
+  #开启驼峰命名
+  configuration:
+    map-underscore-to-camel-case: on
+
+logging:
+  level: {
+     com.qingchen.mydemo.*.* : info ,
+     com.qingchen.mydemo.mapper.* : debug
+  }
+  file:
+    #max-size: 100MB
+    #path:
+
