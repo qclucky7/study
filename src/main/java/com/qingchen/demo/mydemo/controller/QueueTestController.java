@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/test")
 public class QueueTestController {
 
+    private static final Logger log = LoggerFactory.getLogger(QueueTestController.class);
     /**
      * 属性名称                数据类型              默认值      说明
      * name                    String               “”       参数名称(实体类字段名称)
@@ -55,9 +58,8 @@ public class QueueTestController {
     })
 
     @GetMapping("/queue/{id}")
-    public String myTest(@PathVariable("id") int id){
-        System.out.println("执行了！！！");
-        return "返回消息内容";
+    public void myTest(@PathVariable("id") int id){
+        log.info("id = {}", id);
     }
 
     @Test

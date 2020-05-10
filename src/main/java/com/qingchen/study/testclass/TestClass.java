@@ -12,14 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author: WangChen
  * @create: 2020-02-27 11:09
  **/
-@Component
 public class TestClass {
 
-    public static final String NAME = "wangchen";
+    public synchronized Object test(){
+        synchronized (this){
 
-    private int i = 100;
-
-    private static final Map<String,String> MAP = new ConcurrentHashMap<>();
+        }
+        return null;
+    }
 
 
 }
