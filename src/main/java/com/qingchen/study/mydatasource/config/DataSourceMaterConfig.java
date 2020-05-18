@@ -24,18 +24,18 @@ import java.util.Properties;
  * @author: WangChen
  * @create: 2020-05-04 15:12
  **/
-@Configuration
-@MapperScan(basePackages = "com.qingchen.demo.*.mapper.master", sqlSessionTemplateRef = "masterSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = "com.qingchen.demo.*.mapper.master", sqlSessionTemplateRef = "masterSqlSessionTemplate")
 public class DataSourceMaterConfig {
 
     @Primary
-    @Bean(name = "dataSourceMaster")
-    @ConfigurationProperties(prefix="spring.datasource.master")
+    //@Bean(name = "dataSourceMaster")
+    //@ConfigurationProperties(prefix="spring.datasource.master")
     public DataSource dataSourceMaster(){
         return DruidDataSourceBuilder.create().build();
     }
 
-    @Bean
+    //@Bean
     @Primary
     public SqlSessionFactory masterSqlSessionFactory(@Qualifier("dataSourceMaster") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
@@ -48,13 +48,13 @@ public class DataSourceMaterConfig {
         return bean.getObject();
     }
 
-    @Bean
+    //@Bean
     @Primary
     public DataSourceTransactionManager masterTransactionManager(@Qualifier("dataSourceMaster") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean
+    //@Bean
     @Primary
     public SqlSessionTemplate masterSqlSessionTemplate(@Qualifier("masterSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);

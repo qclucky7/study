@@ -14,12 +14,12 @@ spring:
       validation-query-timeout: 2000
       test-on-borrow: false
       test-on-return: false
-      test-while-idle: on
+      test-while-idle: true
       #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
       time-between-eviction-runs-millis: 600000
       #配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 300000
-      remove-abandoned: on
+      remove-abandoned: true
     master:
      driver-class-name: com.mysql.cj.jdbc.Driver
      url: jdbc:mysql://rm-2ze6dvrqezp7j30g6zo.mysql.rds.aliyuncs.com:3306/qingchen?useUnicode=true&characterEncoding=utf8
@@ -73,7 +73,7 @@ mybatis:
   type-aliases-package: com.qingchen.demo.*.model
   #开启驼峰命名
   configuration:
-    map-underscore-to-camel-case: on
+    map-underscore-to-camel-case: true
 
 logging:
   level: {

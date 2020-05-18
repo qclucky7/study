@@ -16,10 +16,27 @@ public class Singleton {
         return SingletonProvider.instance;
     }
 
+    enum SingletonProviderEnum{
+        instance;
+        private Singleton singleton;
+
+        SingletonProviderEnum(){
+            singleton = new Singleton();
+        }
+        public Singleton get(){
+            return singleton;
+        }
+    }
+
+    public static Singleton getInstanceEnum(){
+        return SingletonProviderEnum.instance.get();
+    }
+
 
     public static void main(String[] args) {
 
         System.out.println(Singleton.getInstance() == Singleton.getInstance());
+        System.out.println(Singleton.getInstanceEnum() == Singleton.getInstanceEnum());
     }
 
 }

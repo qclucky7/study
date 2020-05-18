@@ -1,29 +1,14 @@
 package com.qingchen.study;
 
-import com.qingchen.study.application.ApplicationContextProvider;
-import com.qingchen.study.filter.booleanfilter.filter.Filter;
-import com.qingchen.study.filter.booleanfilter.filter.FilterManager;
-import com.qingchen.study.mail.MailBean;
-import com.qingchen.study.mail.MailUtil1;
-import com.qingchen.study.observer.ActivitySubjectCommon;
+import com.qingchen.study.elasticsearch.ArticleRepository;
+import com.qingchen.study.elasticsearch.entity.Article;
 import com.qingchen.study.properties.PropertiesTest;
-import com.qingchen.study.strategy.StrategyContext;
-import com.qingchen.study.strategy.Vip3;
-import com.qingchen.study.strategy.Vip4;
-import com.qingchen.study.testclass.TestClass;
 import com.qingchen.study.utils.IdUtils;
 import com.qingchen.study.utils.JavaUtils;
-import org.aspectj.lang.annotation.Around;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-
-import javax.annotation.Resource;
-import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 @SpringBootTest
 class StudyApplicationTests {
@@ -57,6 +42,7 @@ class StudyApplicationTests {
 
 
     }
+
 
     public void testApplication(){
 

@@ -23,17 +23,17 @@ import java.util.Properties;
  * @author: WangChen
  * @create: 2020-05-04 20:11
  **/
-@Configuration
-@MapperScan(basePackages = "com.qingchen.demo.*.mapper.slave", sqlSessionTemplateRef = "slaveSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = "com.qingchen.demo.*.mapper.slave", sqlSessionTemplateRef = "slaveSqlSessionTemplate")
 public class DataSourceSlaveConfig {
 
-    @Bean(name = "dataSourceSlave")
-    @ConfigurationProperties(prefix="spring.datasource.slave")
+    //@Bean(name = "dataSourceSlave")
+    //@ConfigurationProperties(prefix="spring.datasource.slave")
     public DataSource dataSourceSlave(){
         return DruidDataSourceBuilder.create().build();
     }
 
-    @Bean
+    //@Bean
     public SqlSessionFactory slaveSqlSessionFactory(@Qualifier("dataSourceSlave") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
@@ -45,12 +45,12 @@ public class DataSourceSlaveConfig {
         return bean.getObject();
     }
 
-    @Bean
+    //@Bean
     public DataSourceTransactionManager slaveTransactionManager(@Qualifier("dataSourceSlave") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
-    @Bean
+    //@Bean
     public SqlSessionTemplate slaveSqlSessionTemplate(@Qualifier("slaveSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }

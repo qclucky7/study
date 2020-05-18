@@ -9,6 +9,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.*;
+
 /**
  * @ClassName StreamTest
  * @description:
@@ -44,19 +46,19 @@ public class StreamTest {
         //我想统计每个人的数量
         //result = {冰清玉洁李四=4, 法外狂徒张三=3, 罗翔老师=3}
         Map<String, Long> personCount = expensesRecords.stream()
-                .collect(Collectors.groupingBy(ExpensesRecord::getName,
-                Collectors.counting())
+                .collect(groupingBy(ExpensesRecord::getName,
+                counting())
                 );
 
         //我想统计一下每个人在哪些城市消费过 k->list
         //这里面没去重, 去重得话收集器去手机Set就可以了, 主要讲用法. Collectors.toSet()
         //result = {冰清玉洁李四=[天津, 北京, 上海, 天津], 法外狂徒张三=[天津, 北京, 天津], 罗翔老师=[天津, 北京, 天津]}
         Map<String, List<String>> personLocation = expensesRecords.stream()
-                .collect(Collectors.groupingBy(ExpensesRecord::getName,
+                .collect(groupingBy(ExpensesRecord::getName,
                         //mapping就是去映射这个对象的一个属性, 然后在传一个收集器去收集
                         //对比一下如果你不写mapping的话它默认去分组的是key->对应一个对象而不是一个属性。
-                        Collectors.mapping(ExpensesRecord::getLocation,
-                                Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList)))
+                       mapping(ExpensesRecord::getLocation,
+                                collectingAndThen(toList(), Collections::unmodifiableList)))
                 );
         //返回一个只读的list 大小为1
         List<String> list = Collections.singletonList("a");
@@ -78,7 +80,7 @@ public class StreamTest {
         //          罗翔老师=ExpensesRecord{id=2, name='罗翔老师', money=300, location='天津', time=1587362689613}
         //          }
         Map<String, Optional<ExpensesRecord>> method1 = expensesRecords.stream()
-                .collect(Collectors.groupingBy(ExpensesRecord::getName,
+                .collect(groupingBy(ExpensesRecord::getName,
                         Collectors.reducing(
                                 BinaryOperator.maxBy(Comparator.comparingLong(ExpensesRecord::getMoney))
                         ))
@@ -92,8 +94,8 @@ public class StreamTest {
 
         //我想查找各个人消费的钱数总和, 平均, 最大值, 最小值, 数量！
         Map<String, LongSummaryStatistics> summaryStatistics = expensesRecords.stream()
-                .collect(Collectors.groupingBy(ExpensesRecord::getName,
-                        Collectors.summarizingLong(ExpensesRecord::getMoney)));
+                .collect(groupingBy(ExpensesRecord::getName,
+                        summarizingLong(ExpensesRecord::getMoney)));
         long count = summaryStatistics.get("法外狂徒张三").getCount();
         double average = summaryStatistics.get("法外狂徒张三").getAverage();
         long max = summaryStatistics.get("法外狂徒张三").getMax();
@@ -101,7 +103,7 @@ public class StreamTest {
         long sum1 = summaryStatistics.get("法外狂徒张三").getSum();
         //只想统计总数
         Map<String, Long> summingLong = expensesRecords.stream()
-                .collect(Collectors.groupingBy(ExpensesRecord::getName,
+                .collect(groupingBy(ExpensesRecord::getName,
                         Collectors.summingLong(ExpensesRecord::getMoney)));
 
 

@@ -2,6 +2,9 @@ package com.qingchen.study.threadLocal;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Objects;
+
 /**
  * @ClassName ThreadLocalTest
  * @description:
@@ -33,6 +36,7 @@ public class ThreadLocalTest {
 
     @Test
     public void myTest(){
-
+        new Object();
+        new HashMap<>();
     }
 }

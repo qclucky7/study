@@ -34,7 +34,7 @@ public class LogAspect {
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
     @Pointcut("execution(* com.qingchen.*.*.controller.*Controller.*(..))")
-    public void pointCut(){
+    public void pointCut() {
     }
 
     @Around("pointCut()")
@@ -61,10 +61,10 @@ public class LogAspect {
 
         String stringBuilderRequestBody =
                 "\n<-------------------------RequestBody------------------------------>\n" +
-                "request method" + ":" + method + "\n" +
-                "request protocol" + ":" + request.getRequestURI() + "\n" +
-                "request arg" + ":" + JSON.toJSONString(Arrays.toString(joinPoint.getArgs())) + "\n" +
-                "<-------------------------RequestBody------------------------------>";
+                        "request method" + ":" + method + "\n" +
+                        "request protocol" + ":" + request.getRequestURI() + "\n" +
+                        "request arg" + ":" + JSON.toJSONString(Arrays.toString(joinPoint.getArgs())) + "\n" +
+                        "<-------------------------RequestBody------------------------------>";
         log.info(stringBuilderRequestBody);
 
 
@@ -79,11 +79,11 @@ public class LogAspect {
 
         Object proceed = joinPoint.proceed();
 
-        if (ObjectUtils.isNotEmpty(proceed)){
+
             log.info("<-------------------------ResponseBody------------------------------>");
             log.info("response = {}", proceed.toString());
             log.info("<-------------------------ResponseBody------------------------------>");
-        }
+
 
         return proceed;
     }

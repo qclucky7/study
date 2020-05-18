@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Vector;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName BigDecimalTest
@@ -37,7 +41,7 @@ public class BigDecimalTest {
 
 
         System.out.println("add = " + bigDecimal1.add(bigDecimal2).setScale(1, BigDecimal.ROUND_HALF_UP));
-        System.out.println("subtract = " + bigDecimal1.subtract(bigDecimal2.setScale(1, BigDecimal.ROUND_HALF_UP)));
+        System.out.println("subtract = " + bigDecimal1.subtract(bigDecimal2).setScale(1, BigDecimal.ROUND_HALF_UP));
         System.out.println("multiply = " + bigDecimal1.multiply(bigDecimal2).setScale(1, BigDecimal.ROUND_HALF_UP));
         System.out.println("divide = " + bigDecimal1.divide(bigDecimal2, 1, BigDecimal.ROUND_HALF_UP));
 

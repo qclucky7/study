@@ -29,7 +29,7 @@ public class RedisZSet {
         ZSetOperations<String, Object> stringObjectZSetOperations = redisTemplate.opsForZSet();
         HashOperations<String, Object, Object> stringObjectObjectHashOperations = redisTemplate.opsForHash();
         ListOperations<String, Object> stringObjectListOperations = redisTemplate.opsForList();
-        StreamOperations<String, Object, Object> stringObjectObjectStreamOperations = redisTemplate.opsForStream();
+        //StreamOperations<String, Object, Object> stringObjectObjectStreamOperations = redisTemplate.opsForStream();
         ClusterOperations<String, Object> stringObjectClusterOperations = redisTemplate.opsForCluster();
         GeoOperations<String, Object> stringObjectGeoOperations = redisTemplate.opsForGeo();
         HyperLogLogOperations<String, Object> stringObjectHyperLogLogOperations = redisTemplate.opsForHyperLogLog();

@@ -2,6 +2,7 @@ package com.qingchen.study.mail;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -27,7 +28,7 @@ import java.util.stream.Collectors;
  * @author: WangChen
  * @create: 2020-03-13 17:43
  **/
-@Component
+
 public class MailUtil1 {
 
     private Logger logger = LoggerFactory.getLogger(MailUtil1.class);
@@ -37,7 +38,7 @@ public class MailUtil1 {
     private static final Pattern PATTERN =
             Pattern.compile("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$");
 
-    @Resource
+    @Autowired(required = false)
     private JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
@@ -50,7 +51,7 @@ public class MailUtil1 {
         mimeMessage.setTo(fromMailAddress);
         mimeMessage.setSubject("SpringBoot集成JavaMail实现邮件发送");
         mimeMessage.setText("SpringBoot集成JavaMail实现邮件发送正文");
-        mailSender.send(mimeMessage);
+        //mailSender.send(mimeMessage);
     }
 
 

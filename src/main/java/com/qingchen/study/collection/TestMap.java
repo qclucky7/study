@@ -1,10 +1,14 @@
 package com.qingchen.study.collection;
 
+import com.google.common.io.CharStreams;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @ClassName Map
@@ -14,22 +18,16 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 public class TestMap {
 
-     private static Map map =  new ConcurrentHashMap<>();
-     private static Map hashMap =  new HashMap();
 
-     static {
-          hashMap.put(1,1);
-          hashMap.put(2,2);
-          hashMap.put(3,3);
-          hashMap.put(4,4);
-          hashMap.put(5,5);
-          hashMap.put(6,6);
-          hashMap.put(7,7);
-     }
+
+     private List list = Collections.synchronizedList(new ArrayList<>());
+
 
      @Test
-     public void testMap(){
-          hashMap.put(8,8);
+     public void myTest(){
+
+          Object o = new Object();
+          System.out.println(Arrays.toString(o.toString().getBytes()));
      }
 
      //解决hash冲突
