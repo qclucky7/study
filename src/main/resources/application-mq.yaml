@@ -1,5 +1,8 @@
-
-rocketmq:
-  name-server: 127.0.0.1:8082
-  producer:
-    group: my-group
+spring:
+  rabbitmq:
+    host: 123.57.84.238
+    port: 5672
+    username: wangchen
+    password: wangchen
+    virtual-host: /
+    publisher-confirms: true

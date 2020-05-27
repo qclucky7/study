@@ -2,6 +2,7 @@ package com.qingchen.demo.mydemo.mapper.master;
 
 import com.qingchen.demo.mydemo.model.Message;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 

@@ -1,5 +1,9 @@
 package com.qingchen.demo.mydemo.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.time.LocalDateTime;
 
 /**
@@ -8,8 +12,10 @@ import java.time.LocalDateTime;
  * @author: WangChen
  * @create: 2020-04-26 12:49
  **/
+@TableName(value = "t_message")
 public class Message implements Cloneable{
 
+    @TableId(value = "message_id", type = IdType.AUTO)
     private long id;
 
     private String url;

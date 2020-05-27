@@ -34,7 +34,7 @@ public class MyElasticsearch {
      * 字段field  =  数据库列
      * 映射mapping = 约束
      */
-    @Autowired
+    @Autowired(required = false)
     private ElasticsearchTemplate elasticsearchTemplate;
 
     @Autowired

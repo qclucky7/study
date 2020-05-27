@@ -1,5 +1,6 @@
 package com.qingchen.study.stream;
 
+import com.qingchen.demo.mydemo.model.Message;
 import com.qingchen.study.mail.MailBean;
 import org.junit.Test;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 import java.util.function.BinaryOperator;
@@ -173,4 +175,54 @@ public class StreamTest {
 
     }
 
+    /**
+     * 计算切分次数
+     */
+    private static Integer countStep(Integer size, int countSize) {
+        return (size + countSize - 1) / countSize;
+    }
+
+
+    @Test
+    public void myTest3(){
+
+        String ss = "1234567890ABCDEF";
+        List<String> strList = getStrList(ss, 2);
+        String[][] strings = Stream.iterate(0, n -> n + 1)
+                .limit(strList.size())
+                .map(x -> strList.stream()
+                        .skip(x)
+                        .limit(1)
+                        .toArray(String[]::new)
+                ).toArray(String[][]::new);
+        System.out.println(Arrays.deepToString(strings));
+    }
+    private static List<String> getStrList(String inputString, int length) {
+        int size = inputString.length() / length;
+        if (inputString.length() % length != 0) {
+            size += 1;
+        }
+        return getStrList(inputString, length, size);
+    }
+
+    private static List<String> getStrList(String inputString, int length,
+                                          int size) {
+        List<String> list = new ArrayList<>();
+        for (int index = 0; index < size; index++) {
+            String childStr = substring(inputString, index * length,
+                    (index + 1) * length);
+            list.add(childStr);
+        }
+        return list;
+    }
+    private static String substring(String str, int f, int t) {
+        if (f > str.length()){
+            return null;
+        }
+        if (t > str.length()) {
+            return str.substring(f);
+        } else {
+            return str.substring(f, t);
+        }
+    }
 }

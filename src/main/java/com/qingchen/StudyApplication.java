@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 @SpringBootApplication
 @EnableAspectJAutoProxy
-@MapperScan(value = "com.qingchen.demo.*.mapper")
+@MapperScan(value = "com.qingchen.demo.*.mapper.*.*")
 @ServletComponentScan
 @EnableElasticsearchRepositories(value = "com.qingchen.study.elasticsearch")
 public class StudyApplication {

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: jpa
+    active: test
   servlet:
     multipart:
       max-file-size: 500MB
@@ -14,6 +14,6 @@ spring:
 
 
 webFilter:
-  enable: true
+  enable: false
 
 

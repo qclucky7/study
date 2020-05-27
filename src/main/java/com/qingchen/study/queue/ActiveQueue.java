@@ -18,8 +18,8 @@ public class ActiveQueue{
 
     private static BlockingQueue<Message> blockingQueue = new LinkedBlockingQueue<>(2048);
 
-    @Resource
-    private TestMapper mapper;
+//    @Resource
+//    private TestMapper mapper;
 
     protected ExecutorService executor;
 
@@ -63,7 +63,7 @@ public class ActiveQueue{
             e.printStackTrace();
         }
         System.out.println("线程消费" + Thread.currentThread().getName() + "信息:" + message.toString());;
-        mapper.insert(message);
+        //mapper.insert(message);
     }
 
 

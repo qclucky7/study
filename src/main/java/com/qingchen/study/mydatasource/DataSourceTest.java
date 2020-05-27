@@ -19,26 +19,26 @@ import javax.annotation.Resource;
 //@DataSourceSelector(dataSource = DynamicDataSource.DatabaseType.dataSourceSlave)
 public class DataSourceTest {
 
-    @Resource
-    private TestMapper mapper;
-
-    @Resource
-    private SlaveTestMapper mapperSlave;
-
-    @GetMapping("/query/{id}")
-    @DataSourceSelector(dataSource = DynamicDataSource.DatabaseType.dataSourceSlave)
-    public void myTest(@PathVariable("id") long id){
-        Message query = mapper.query(id);
-        Message query1 = mapperSlave.query(id);
-
-        System.out.println(query);
-        System.out.println(query1);
-    }
-
-    @GetMapping("/query_slave/{id}")
-    @DataSourceSelector(dataSource = DynamicDataSource.DatabaseType.dataSourceSlave)
-    public void myTestSlave(@PathVariable("id") long id){
-        Message query = mapperSlave.query(id);
-        System.out.println(query);
-    }
+//    @Resource
+//    private TestMapper mapper;
+//
+//    @Resource
+//    private SlaveTestMapper mapperSlave;
+//
+//    @GetMapping("/query/{id}")
+//    @DataSourceSelector(dataSource = DynamicDataSource.DatabaseType.dataSourceSlave)
+//    public void myTest(@PathVariable("id") long id){
+//        Message query = mapper.query(id);
+//        Message query1 = mapperSlave.query(id);
+//
+//        System.out.println(query);
+//        System.out.println(query1);
+//    }
+//
+//    @GetMapping("/query_slave/{id}")
+//    @DataSourceSelector(dataSource = DynamicDataSource.DatabaseType.dataSourceSlave)
+//    public void myTestSlave(@PathVariable("id") long id){
+//        Message query = mapperSlave.query(id);
+//        System.out.println(query);
+//    }
 }

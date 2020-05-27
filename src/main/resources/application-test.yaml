@@ -65,6 +65,13 @@ spring:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
         debug: true
+  rabbitmq:
+    host: 123.57.84.238
+    port: 5672
+    username: wangchen
+    password: wangchen
+    virtual-host: /
+    publisher-confirms: true
 
 #mybatis的相关配置
 mybatis:
@@ -74,6 +81,7 @@ mybatis:
   #开启驼峰命名
   configuration:
     map-underscore-to-camel-case: true
+
 
 logging:
   level: {
