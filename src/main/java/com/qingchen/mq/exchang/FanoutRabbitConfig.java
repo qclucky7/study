@@ -1,10 +1,8 @@
 package com.qingchen.mq.exchang;
 
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.FanoutExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,6 +22,7 @@ public class FanoutRabbitConfig {
      *  将三个队列都绑定在交换机 fanoutExchange 上
      *  因为是扇型交换机, 路由键无需配置,配置也不起作用
      */
+
     @Bean
     public Queue queueA() {
         return new Queue("fanout.A");

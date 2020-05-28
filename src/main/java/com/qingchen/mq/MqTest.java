@@ -1,6 +1,11 @@
 package com.qingchen.mq;
 
+import com.qingchen.mq.config.death.DeathQueue;
 import com.qingchen.mq.config.RabbitMqConfig;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +62,44 @@ public class MqTest {
         rabbitTemplate.convertAndSend("fanoutExchange", null, map);
         return "ok";
     }
+
+
+    @GetMapping("/TestMessageAck")
+    public String TestMessageAck() {
+
+        String messageId = String.valueOf(UUID.randomUUID());
+        String messageData = "message: non-existent-exchange test message ";
+        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Map<String, Object> map = new HashMap<>();
+        map.put("messageId", messageId);
+        map.put("messageData", messageData);
+        map.put("createTime", createTime);
+        rabbitTemplate.convertAndSend("non-existent-exchange", "TestDirectRouting", map);
+
+        return "ok";
+
+    }
+
+    @GetMapping("/death")
+    public String deathMessage() {
+
+
+        String messageData = "deadletter";
+        //发送消息的时候设置消息过期时间
+        rabbitTemplate.convertAndSend(DeathQueue.BUSINESS_EXCHANGE_NAME, null, messageData,
+                message -> {
+                    message.getMessageProperties().setExpiration("10000");
+                    return message;
+                }
+
+        );
+
+        //rabbitTemplate.convertAndSend(DeathQueue.BUSINESS_EXCHANGE_NAME, null, messageData);
+
+        return "ok";
+
+    }
+
 
 
 }

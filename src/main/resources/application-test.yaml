@@ -71,7 +71,17 @@ spring:
     username: wangchen
     password: wangchen
     virtual-host: /
-    publisher-confirms: true
+    #确认消息已发送到交换机(Exchange)
+    #publisher-confirms: true
+    #确认消息已发送到队列(Queue)
+    #publisher-returns: true
+    #手动提交
+    listener:
+      simple:
+        acknowledge-mode: manual
+        default-requeue-rejected: false
+
+
 
 #mybatis的相关配置
 mybatis:
