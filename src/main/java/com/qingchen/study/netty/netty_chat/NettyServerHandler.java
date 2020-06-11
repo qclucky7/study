@@ -92,7 +92,7 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<String> {
 
         channelGroup.forEach(channel1 -> {
             if (channel1 != channel){
-                channel1.writeAndFlush(simpleDateFormat.format(new Date()) + "[客户端]" + channel.remoteAddress() + "消息 ：" + msg + "\n");
+                 channel1.writeAndFlush(simpleDateFormat.format(new Date()) + "[客户端]" + channel.remoteAddress() + "消息 ：" + msg + "\n");
             } else {
                  channel.writeAndFlush(simpleDateFormat.format(new Date()) + "[自己发送了消息]" + msg + "\n");
             }
