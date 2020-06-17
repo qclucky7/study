@@ -22,8 +22,8 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRcodeUtil {
     // 图片宽度的一般
-    private static final int IMAGE_WIDTH = 50;
-    private static final int IMAGE_HEIGHT = 50;
+    private static final int IMAGE_WIDTH = 80;
+    private static final int IMAGE_HEIGHT = 80;
     private static final int IMAGE_HALF_WIDTH = IMAGE_WIDTH / 2;
     private static final int FRAME_WIDTH = 2;
 
@@ -141,7 +141,7 @@ public class QRcodeUtil {
 
     public static void main(String[] args) {
         //将1.png作为logo放在2.png中间   生成扫码图片2.png变成二维码
-        QRcodeUtil.encode("http://www.baidu.com", 300, 300, "D:\\Huawei Share\\OneHop\\3.jpeg", "D:/2.png");
+        QRcodeUtil.encode("", 300, 300, "C:\\Users\\27172\\Desktop\\hdImg_b8b9647edc8e095b60339cdd3777b32e1591874089018.jpg", "D:/2.png");
         System.out.println("成功！！！");
     }
 }

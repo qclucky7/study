@@ -13,6 +13,7 @@ import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 @SpringBootTest
 class StudyApplicationTests {
 
+
     @Autowired
     private PropertiesTest propertiesTest;
 
