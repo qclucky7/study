@@ -6,7 +6,6 @@ package com.qingchen.study.vlife;
  *
  */
 public enum ErrorCode {
-	
 	/**
 	 * Session 失效
 	 */

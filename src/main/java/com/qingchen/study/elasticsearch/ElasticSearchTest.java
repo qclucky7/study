@@ -3,11 +3,17 @@ package com.qingchen.study.elasticsearch;
 import com.qingchen.study.elasticsearch.entity.Article;
 import com.qingchen.study.elasticsearch.entity.Goods;
 import com.qingchen.study.utils.StringUtils;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.terms.LongTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
@@ -15,7 +21,9 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
@@ -159,6 +167,36 @@ public class ElasticSearchTest {
 
 
     }
+
+    public void AggregationAndCount(Class clazz) {
+        TermsAggregationBuilder builder = AggregationBuilders.terms("tag_count").field("tag")
+                .subAggregation(AggregationBuilders.terms("type_count").field("type"));
+        Document document = (Document) clazz.getAnnotation(Document.class);
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withIndices(document.indexName())
+                .withTypes(document.type())
+                .addAggregation(builder)
+                .build();
+        Aggregations aggregation = restTemplate.query(searchQuery, new ResultsExtractor<Aggregations>() {
+            @Override
+            public Aggregations extract(SearchResponse searchResponse) {
+                return searchResponse.getAggregations();
+            }
+        });
+        StringTerms teamAgg = (StringTerms) aggregation.asMap().get("tag_count");
+        List<StringTerms.Bucket> bucketList = teamAgg.getBuckets();
+        for (StringTerms.Bucket bucket : bucketList) {
+            LongTerms longTerms=(LongTerms)bucket.getAggregations().asMap().get("type_count");
+            List<LongTerms.Bucket> bucketList1 = longTerms.getBuckets();
+            for (LongTerms.Bucket bucket1 : bucketList1){
+                String key = bucket1.getKeyAsString();
+                long num = bucket1.getDocCount();
+                System.out.println(key);
+                System.out.println(num);
+            }
+        }
+    }
+
 
 
     @GetMapping("/simpleQuery")

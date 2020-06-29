@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Date;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,6 +51,11 @@ public class LoginControllerTest {
     public void register() throws Exception {
 
         UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("王晨");
+        userDTO.setPassword("123");
+        userDTO.setPhone("15242957219");
+        userDTO.setEmail("271724646@qq.com");
+        userDTO.setBirthDate(new Date());
 
         String apiUrl = "/api/v1/register";
 
@@ -64,7 +71,7 @@ public class LoginControllerTest {
                 .andReturn();   // 发起Mock请求 拿到结果
 
         Assert.assertEquals(mvcResult.getResponse().getStatus(), MockHttpServletResponse.SC_OK);
-        Assert.assertEquals(mvcResult.getResponse().getContentAsString(), "true");
+        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
     @Test

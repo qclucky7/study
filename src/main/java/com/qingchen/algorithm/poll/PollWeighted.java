@@ -1,4 +1,4 @@
-package com.qingchen.algorithm;
+package com.qingchen.algorithm.poll;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,13 +18,9 @@ public class PollWeighted {
 
     public static String getProxy() throws InterruptedException {
         synchronized (LOCK){
-            if (counter == proxy.length){
-                counter = 0;
-            }
-            String ip = proxy[counter];
-            counter ++;
+            counter = (counter + 1) % proxy.length;
             TimeUnit.MILLISECONDS.sleep(1);
-            return ip;
+            return proxy[counter];
         }
     }
 }

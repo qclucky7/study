@@ -1,9 +1,8 @@
 package com.qingchen.tdd;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.qingchen.study.globalexception.Result;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName LoginController
@@ -17,11 +16,15 @@ public class LoginController {
 
 
     @PostMapping("/register")
-    public boolean register(@RequestBody UserDTO userDTO){
+    public Result<UserDTO> register(@RequestBody @Validated UserDTO userDTO){
 
-        return true;
+        return Result.ofSuccess(userDTO);
     }
 
+    @PostMapping("/test")
+    public void test(@RequestParam("test") String test){
+        System.out.println(test);
+    }
 
     @PostMapping("/login")
     public boolean login(@RequestBody UserDTO userDTO){

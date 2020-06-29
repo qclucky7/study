@@ -1,4 +1,4 @@
-package com.qingchen.algorithm;
+package com.qingchen.algorithm.poll;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,11 +13,12 @@ public class Poll {
 
     private static String[] proxy = {"ip:001", "ip:002", "ip:003", "ip:004", "ip:005"};
 
-    private static int counter = 0;
+    private int counter = proxy.length - 1;
+    private int total = proxy.length;
 
     private static final Object LOCK = new Object();
 
-    public static String getProxy() throws InterruptedException {
+    public String getProxy() throws InterruptedException {
         synchronized (LOCK) {
             if (counter == proxy.length) {
                 counter = 0;
@@ -28,6 +29,19 @@ public class Poll {
             return ip;
         }
     }
+
+    public String getProxy1(){
+        synchronized (LOCK) {
+            counter = (counter + 1) % total;
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return proxy[counter];
+        }
+    }
+
 
 
 }

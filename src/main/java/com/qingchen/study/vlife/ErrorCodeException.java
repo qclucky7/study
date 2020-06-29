@@ -1,5 +1,7 @@
 package com.qingchen.study.vlife;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * 服务器异常类
  * 

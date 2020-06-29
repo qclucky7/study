@@ -1,6 +1,8 @@
 package com.qingchen.study.globalexception;
 
 import com.qingchen.study.vlife.ErrorCodeException;
+import com.qingchen.study.vlife.ErrorType;
+import com.qingchen.study.vlife.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -19,32 +21,27 @@ import java.util.List;
  * @author: WangChen
  * @create: 2020-02-27 15:12
  **/
-//@ControllerAdvice
+@ControllerAdvice
 public class GlobalException {
 
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
-    public ErrorResponse globalExceptionHandle(Exception exception){
+    public Result<?> globalExceptionHandle(Exception exception){
 
-        ErrorResponse errorResponse = new ErrorResponse();
         if (exception instanceof ErrorCodeException){
             ErrorCodeException errorCodeException = (ErrorCodeException) exception;
-            errorResponse.setMsg(errorCodeException.getCode().getType().name());
-            errorResponse.setCode(errorCodeException.getCode().getStatus());
+            return Result.ofFail(errorCodeException.getCode().getStatus(), errorCodeException.getCode().name());
         } else if (exception instanceof MethodArgumentNotValidException){
             MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) exception;
             StringBuilder stringBuilder = new StringBuilder();
             BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
             bindingResult.getAllErrors().forEach(e -> stringBuilder.append(e.getDefaultMessage()).append(", "));
-            System.out.println(stringBuilder.toString());
-            errorResponse.setMsg(stringBuilder.toString());
-            errorResponse.setCode(500);
-        } else {
-             errorResponse.setMsg(exception.getMessage());
-             errorResponse.setCode(500);
+            return Result.ofFail(HttpStatus.error_no_data.getStatus(), stringBuilder.toString());
         }
+        exception.printStackTrace();
 
-        return errorResponse;
+
+        return Result.ofFail(HttpStatus.error_unknown.getStatus(), ErrorType.server_error.name());
 
     }
 

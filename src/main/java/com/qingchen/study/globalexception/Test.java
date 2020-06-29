@@ -22,14 +22,6 @@ public class Test {
         System.out.println("收到消息！！");
     }
 
-    @PostMapping("/error")
-    public String test1(@RequestBody @Valid ErrorResponse errorResponse ){
-
-        System.out.println(errorResponse.toString());
-
-        return errorResponse.getMsg();
-    }
-
 
 
 
