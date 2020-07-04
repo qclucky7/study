@@ -1,8 +1,6 @@
 package com.qingchen.study.decoration;
 
-import com.qingchen.study.decoration.strategy.Base64Strategy;
-import com.qingchen.study.decoration.strategy.StrategyEnum;
-import com.qingchen.study.decoration.strategy.StrategyFactory;
+import com.qingchen.study.decoration.strategy.EncryptUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -22,7 +20,7 @@ public class DecorationTest {
     @Test
     public void myTest() throws Exception{
         DataSource dataSourceEncryption = new DataSourceEncryption(
-                StrategyEnum.BASE64,
+                EncryptUtils.BASE64,
                 new MyDataSource("D:\\test.txt")
                 );
         Path path = Paths.get("D:\\my.txt");

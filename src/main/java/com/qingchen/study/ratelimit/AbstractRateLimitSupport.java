@@ -1,19 +1,16 @@
 package com.qingchen.study.ratelimit;
 
 import com.qingchen.study.globalexception.Result;
-import com.qingchen.study.utils.other.StringUtil;
+import com.qingchen.study.utils.other.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName AbstractRateLimitSupport
@@ -54,7 +51,7 @@ public abstract class AbstractRateLimitSupport {
         
         String classMapping = resolveClassAnnotation(method);
         String methodMapping = resolveMethodAnnotation(method);
-        if (StringUtil.isNotEmpty(classMapping)){
+        if (StringUtils.isNotEmpty(classMapping)){
             return classMapping + methodMapping;
         }
         return methodMapping;

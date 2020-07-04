@@ -1,13 +1,5 @@
 package com.qingchen.study.vlife;
 
-import org.springframework.http.HttpStatus;
-
-/**
- * 服务器异常类
- * 
- * @author nibaogang
- * 
- */
 public class ErrorCodeException extends RuntimeException {
 	private static final long serialVersionUID = 1779571984263011273L;
 	private ErrorCode code;

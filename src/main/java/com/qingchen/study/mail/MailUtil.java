@@ -1,6 +1,6 @@
 package com.qingchen.study.mail;
 
-import com.qingchen.study.utils.SetUtils;
+import com.qingchen.study.utils.mybatis.CollectionUtils;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -94,13 +94,13 @@ public class MailUtil {
         mm.setSubType("mixed");
 
         // 7. 创建附件“节点”
-        if (SetUtils.isNotEmpty(filePaths)) {
+        if (CollectionUtils.isNotEmpty(filePaths)) {
             for (int i = 0; i < filePaths.size(); i++) {
                 String filePath = filePaths.get(i);
                 MimeBodyPart attachment = new MimeBodyPart();
                 DataHandler dh = new DataHandler(new FileDataSource(filePath));
                 attachment.setDataHandler(dh);
-                if (SetUtils.isNotEmpty(fileNames) && fileNames.size() == filePaths.size()) {
+                if (CollectionUtils.isNotEmpty(fileNames) && fileNames.size() == filePaths.size()) {
                     attachment.setFileName(MimeUtility.encodeText(fileNames.get(i)));
                 } else {
                     attachment.setFileName(MimeUtility.encodeText(dh.getName()));

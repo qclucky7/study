@@ -47,7 +47,7 @@ public final class ConfigUtil {
      * @return the retrieved properties from the file; null if the file not exist
      */
     public static Properties loadProperties(String fileName) {
-        if (StringUtil.isNotBlank(fileName)) {
+        if (StringUtils.isNotBlank(fileName)) {
             if (absolutePathStart(fileName)) {
                 return loadPropertiesFromAbsoluteFile(fileName);
             } else if (fileName.startsWith(CLASSPATH_FILE_FLAG)) {
@@ -140,7 +140,7 @@ public final class ConfigUtil {
     private static Charset getCharset() {
         // avoid static loop dependencies: SentinelConfig -> SentinelConfigLoader -> ConfigUtil -> SentinelConfig
         // so not use SentinelConfig.charset()
-        return Charset.forName(System.getProperty("csp.sentinel.charset", StandardCharsets.UTF_8.name()));
+        return Charset.forName(StandardCharsets.UTF_8.name());
     }
 
     public static String addSeparator(String dir) {

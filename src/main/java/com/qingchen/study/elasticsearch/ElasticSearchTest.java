@@ -175,6 +175,7 @@ public class ElasticSearchTest {
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withIndices(document.indexName())
                 .withTypes(document.type())
+                .withFields()
                 .addAggregation(builder)
                 .build();
         Aggregations aggregation = restTemplate.query(searchQuery, new ResultsExtractor<Aggregations>() {

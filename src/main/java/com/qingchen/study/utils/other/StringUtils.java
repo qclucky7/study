@@ -20,7 +20,7 @@ package com.qingchen.study.utils.other;
  *
  * @author youji.zj
  */
-public final class StringUtil {
+public final class StringUtils {
 
     public static final String EMPTY = "";
 
@@ -134,5 +134,9 @@ public final class StringUtil {
         }
         buf.append(str.substring(1));
         return buf.toString();
+    }
+
+    public static String format(String target, Object... params) {
+        return String.format(target, params);
     }
 }

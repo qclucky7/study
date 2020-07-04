@@ -15,4 +15,6 @@ public interface BeanCopyCallBack<S, T> {
      * @param s
      */
     void execute(S t, T s);
+
+
 }

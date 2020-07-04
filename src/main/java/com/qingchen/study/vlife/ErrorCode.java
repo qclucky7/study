@@ -1,10 +1,6 @@
 package com.qingchen.study.vlife;
 
-/**
- * 错误信息
- * @author xuliang
- *
- */
+
 public enum ErrorCode {
 	/**
 	 * Session 失效

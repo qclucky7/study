@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: test
+  main:
+    allow-bean-definition-overriding: true
   servlet:
     multipart:
       max-file-size: 500MB

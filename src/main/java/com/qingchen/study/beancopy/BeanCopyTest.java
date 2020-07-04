@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.BeanUtils;
 
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * @ClassName BeanCopyTest
@@ -55,19 +56,14 @@ public class BeanCopyTest {
     @Test
     public void myTest4(){
 
-        Goods goods = new Goods(2, 2, 2, "衣服", "xxx.com");
-        GoodsVO goodsVO = BeanCopyUtils.copyProperties(goods, GoodsVO::new, (good, goodsvo) ->
-                goodsvo.setGoodName(good.getGoodName() + "自定义！！！1"));
+        Order order = new Order(1, 1, 1, 100L, "天津", "666", "15242957219",
+                new Goods(2, 2, 2, "衣服", "xxx.com"));
 
-        LinkedList<Goods> objects = new LinkedList<>();
-        objects.add(goods);
 
-        List<GoodsVO> goodsVOS = BeanCopyUtils.copyListProperties(
-                objects,
-                LinkedList::new,
-                GoodsVO::new,
-                (good, goodsvo) -> goodsvo.setGoodName(good.getGoodName() + "自定义！！！1"));
+        OrderVO orderVO = BeanCopyUtils.copyProperties(order, OrderVO::new);
 
-        System.out.println(goodsVO.toString());
+        System.out.println(orderVO);
+
+
     }
 }

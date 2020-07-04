@@ -63,8 +63,7 @@ public class SlaveConfig {
         Map<String, Object> properties = hibernateProperties.determineHibernateProperties(
                 jpaProperties.getProperties(), new HibernateSettings());
 
-        return builder
-                .dataSource(primaryDataSource())
+        return builder.dataSource(primaryDataSource())
                 .properties(properties)
                 //设置实体类所在位置
                 .packages("com/qingchen/study/jpa/slave/entity")

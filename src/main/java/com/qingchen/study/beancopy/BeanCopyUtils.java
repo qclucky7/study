@@ -1,9 +1,12 @@
 package com.qingchen.study.beancopy;
 
-import org.apache.commons.collections4.CollectionUtils;
+
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.qingchen.study.utils.mybatis.ClassUtils;
+import net.sf.cglib.beans.BeanMap;
 import org.springframework.beans.BeanUtils;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -18,18 +21,16 @@ public class BeanCopyUtils extends BeanUtils {
 
 
     /**
-     * 集合数据的拷贝
      * @param sources
      * @param target
      * @return
      */
-    public static <S, T> Set<T> copySetProperties(Set<S> sources,Supplier<Set> setType, Supplier<T> target) {
+    public static <S, T> Set<T> copySetProperties(Set<S> sources, Supplier<Set> setType, Supplier<T> target) {
         return copySetProperties(sources, setType, target,null);
     }
 
 
     /**
-     * 带回调函数的集合数据的拷贝（可自定义字段拷贝规则）
      * @param sources
      * @param target
      * @param callBackFunction
@@ -51,17 +52,15 @@ public class BeanCopyUtils extends BeanUtils {
     }
 
     /**
-     * 集合数据的拷贝
      * @param sources
      * @param target
      * @return
      */
     public static <S, T> List<T> copyListProperties(List<S> sources, Supplier<T> target) {
-        return copyListProperties(sources, ArrayList::new ,target, null);
+        return copyListProperties(sources, ArrayList::new, target, null);
     }
 
     /**
-     * 默认ArrayList copy
      * @param sources
      * @param target
      * @param callBackFunction
@@ -82,7 +81,6 @@ public class BeanCopyUtils extends BeanUtils {
     }
 
     /**
-     * 带回调函数的集合数据的拷贝（可自定义字段拷贝规则）
      * @param sources
      * @param target
      * @param callBackFunction
@@ -104,7 +102,6 @@ public class BeanCopyUtils extends BeanUtils {
     }
 
     /**
-     * 简单拷贝
      * @param source
      * @param target
      * @param <S>
@@ -113,13 +110,20 @@ public class BeanCopyUtils extends BeanUtils {
      */
     public static <S, T> T copyProperties(S source, Supplier<T> target){
 
+        Field[] declaredFields = source.getClass().getDeclaredFields();
+
+        for (Field declaredField : declaredFields) {
+            if (Object.class.isAssignableFrom(declaredField.getType())){
+                System.out.println(1111);
+            }
+        }
+
         T t = target.get();
         copyProperties(source, t);
         return t;
     }
 
     /**
-     * 回调拷贝
      * @param source
      * @param target
      * @param callBackFunction
@@ -136,92 +140,52 @@ public class BeanCopyUtils extends BeanUtils {
         return t;
     }
 
-
-    private static Field[] getAllFields(Object o){
-        Class c= o.getClass();
-        List<Field> fieldList = new ArrayList<>();
-        while (c!= null){
-            fieldList.addAll(new ArrayList<>(Arrays.asList(c.getDeclaredFields())));
-            c= c.getSuperclass();
-        }
-        Field[] fields = new Field[fieldList.size()];
-        fieldList.toArray(fields);
-        return fields;
-    }
-
-
     /**
-     * 反射获取对象中的list数据
-     * @param object
-     * @param <T>
-     */
-    public static<T> void getList(Object object){
-        List<T> resultList = new ArrayList<>();
-
-            Field[] fields = getAllFields(object);
-            Field[] filterList= filterField(fields);
-            System.out.println(Arrays.toString(filterList));
-            Arrays.stream(filterList).forEach(var -> {
-                //List集合
-                if(List.class.isAssignableFrom(var.getType())){
-                    Type type = var.getGenericType();
-                    if(type instanceof ParameterizedType){
-                        if(!var.isAccessible()){
-                            var.setAccessible(true);
-                        }
-                        //获取到属性值的字节码
-                        try {
-                            Class<?> clzz = var.get(object).getClass();
-                            //反射调用获取到list的size方法来获取到集合的大小
-                            Method sizeMethod = clzz.getDeclaredMethod("size");
-                            if(!sizeMethod.isAccessible()){
-                                sizeMethod.setAccessible(true);
-                            }
-                            //集合长度
-                            int size = (int) sizeMethod.invoke(var.get(object));
-                            System.out.println(size);
-                            //循环遍历获取到数据
-                            for (int i = 0; i < size; i++) {
-                                //反射获取到list的get方法
-                                Method getMethod = clzz.getDeclaredMethod("get", int.class);
-                                //调用get方法获取数据
-                                if(!getMethod.isAccessible()){
-                                    getMethod.setAccessible(true);
-                                }
-                                T var1 = (T) getMethod.invoke(var.get(object), i);
-                                resultList.add(var1);
-                            }
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            });
-
-            System.out.println(resultList.toString());
-    }
-
-
-    /**
-     * 过滤字段
-     * @param
+     *
+     * @param bean
      * @return
      */
-    public static Field[] filterField(Field[] fields){
-        List<Field> tempList = Arrays.stream(fields).filter(field -> null != field
-                && !Modifier.isFinal(field.getModifiers())
-                && !Modifier.isStatic(field.getModifiers())
-                && !Modifier.isAbstract(field.getModifiers())).collect(Collectors.toList());
-
-        int arrLength = CollectionUtils.isEmpty(tempList) ? 1:tempList.size();
-
-        Field[] resultArr = new Field[arrLength];
-        if(!CollectionUtils.isEmpty(tempList)){
-            tempList.toArray(resultArr);
-        }
-        return resultArr;
+    public static Map<String, Object> beanToMap(Object bean) {
+        return null == bean ? null : BeanMap.create(bean);
     }
+
+
+    /**
+     *
+     * @param map
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T mapToBean(Map<String, Object> map, Class<T> clazz) {
+        T bean = ClassUtils.newInstance(clazz);
+        BeanMap.create(bean).putAll(map);
+        return bean;
+    }
+
+
+    /**
+     *
+     * @param beans
+     * @param <T>
+     * @return
+     */
+    public static <T> List<Map<String, Object>> beansToMaps(List<T> beans) {
+        return CollectionUtils.isEmpty(beans) ? Collections.emptyList() : beans.stream().map(BeanCopyUtils::beanToMap).collect(Collectors.toList());
+    }
+
+    /**
+     *
+     * @param maps
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> mapsToBeans(List<Map<String, Object>> maps, Class<T> clazz) {
+        return CollectionUtils.isEmpty(maps) ? Collections.emptyList() : maps.stream().map((e) -> mapToBean(e, clazz)).collect(Collectors.toList());
+    }
+
+
 
 
 

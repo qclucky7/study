@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,7 +36,14 @@ public class GlobalException {
             MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) exception;
             StringBuilder stringBuilder = new StringBuilder();
             BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
-            bindingResult.getAllErrors().forEach(e -> stringBuilder.append(e.getDefaultMessage()).append(", "));
+            for (int i = 0; i < bindingResult.getAllErrors().size(); i++) {
+                if (i == bindingResult.getAllErrors().size() - 1) {
+                    stringBuilder.append(bindingResult.getAllErrors().get(i).getDefaultMessage());
+                } else {
+                    stringBuilder.append(bindingResult.getAllErrors().get(i).getDefaultMessage()).append(" ,");
+                }
+            }
+
             return Result.ofFail(HttpStatus.error_no_data.getStatus(), stringBuilder.toString());
         }
         exception.printStackTrace();

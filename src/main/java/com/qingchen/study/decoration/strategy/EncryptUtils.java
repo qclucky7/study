@@ -4,7 +4,7 @@ import com.qingchen.study.vlife.AESUtil;
 
 import java.util.Base64;
 
-public enum StrategyEnum implements EncryptionStrategy{
+public enum EncryptUtils implements EncryptionStrategy{
 
 
     /**
@@ -36,14 +36,27 @@ public enum StrategyEnum implements EncryptionStrategy{
      * BASE64加密解密策略
      */
     BASE64{
+
         @Override
         public String encrypt(String data) {
+
             return Base64.getEncoder().encodeToString(data.getBytes());
         }
 
         @Override
         public String decrypt(String data) {
+
             return new String(Base64.getDecoder().decode(data));
+        }
+
+        public String urlEncrypt(String data){
+
+            return Base64.getUrlEncoder().encodeToString(data.getBytes());
+        }
+
+        public String urlDecrypt(String data){
+
+            return new String(Base64.getUrlDecoder().decode(data));
         }
     }
 }
