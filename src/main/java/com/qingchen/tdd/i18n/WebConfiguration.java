@@ -1,10 +1,9 @@
-package com.qingchen.tdd;
+package com.qingchen.tdd.i18n;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -28,6 +27,15 @@ public class WebConfiguration implements WebMvcConfigurer {
     }
 
     /*国际化 start*/
+    @Override
+    public Validator getValidator() {
+        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+        //localValidatorFactoryBean.getValidationPropertyMap().put("hibernate.validator.fail_fast", "true");
+        //为Validator配置国际化
+        localValidatorFactoryBean.setValidationMessageSource(resourceBundleMessageSource());
+        return localValidatorFactoryBean;
+    }
+
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         //LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -45,14 +53,14 @@ public class WebConfiguration implements WebMvcConfigurer {
         return localeResolver;
     }
 
-    @Bean
-    public LocalValidatorFactoryBean mvcValidator() {
-        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
-        //localValidatorFactoryBean.getValidationPropertyMap().put("hibernate.validator.fail_fast", "true");
-        //为Validator配置国际化
-        localValidatorFactoryBean.setValidationMessageSource(resourceBundleMessageSource());
-        return localValidatorFactoryBean;
-    }
+//    @Bean
+//    public LocalValidatorFactoryBean mvcValidator() {
+//        LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
+//        //localValidatorFactoryBean.getValidationPropertyMap().put("hibernate.validator.fail_fast", "true");
+//        //为Validator配置国际化
+//        localValidatorFactoryBean.setValidationMessageSource(resourceBundleMessageSource());
+//        return localValidatorFactoryBean;
+//    }
 
 
     @Bean(name = "messageSource")

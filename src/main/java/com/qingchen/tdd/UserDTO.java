@@ -15,7 +15,7 @@ public class UserDTO {
      private String userName;
      @NotBlank(message = "{message.password}")
      private String password;
-     @NotBlank(message = "手机号不能为空")
+     @NotBlank(message = "{message.phone}")
      //@Pattern(regexp = "^1\\d{10}$", message = "请输入正确手机号")
      private String phone;
      //@NotBlank(message = "邮箱不能为空")

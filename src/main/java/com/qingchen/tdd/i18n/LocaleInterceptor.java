@@ -1,4 +1,4 @@
-package com.qingchen.tdd;
+package com.qingchen.tdd.i18n;
 
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.servlet.LocaleResolver;

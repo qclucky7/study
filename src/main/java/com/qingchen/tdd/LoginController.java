@@ -1,6 +1,9 @@
 package com.qingchen.tdd;
 
 import com.qingchen.study.globalexception.Result;
+import com.qingchen.study.utils.mybatis.GlobalException;
+import com.qingchen.study.vlife.ErrorCode;
+import com.qingchen.study.vlife.ErrorCodeException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,4 +34,12 @@ public class LoginController {
 
         return true;
     }
+
+    @GetMapping("/message")
+    public void myTest(){
+
+        throw new GlobalException(MultiLanguageUtils.getMessage("message.ex.test"));
+
+    }
+
 }
