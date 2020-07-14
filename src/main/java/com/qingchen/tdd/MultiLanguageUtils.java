@@ -20,9 +20,7 @@ public class MultiLanguageUtils {
     private static MessageSource messageSource;
 
     @Autowired
-    public MultiLanguageUtils(MessageSource messageSource) {
-        MultiLanguageUtils.messageSource = messageSource;
-    }
+    public MultiLanguageUtils(MessageSource messageSource) { MultiLanguageUtils.messageSource = messageSource; }
 
     public static String getMessage(String code) {
         return getMessage(code, new Object[]{});

@@ -3,6 +3,7 @@ package com.qingchen.study.filter.booleanfilter.filter;
 import com.qingchen.study.application.ApplicationContextProvider;
 import com.qingchen.study.spring.myconfig.MyConfig;
 import org.junit.Test;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ import java.util.Map;
  * @create: 2020-04-25 15:59
  **/
 @Component
-public class SpringGetInterface {
+public class SpringGetInterface implements InitializingBean {
 
 
     static {
@@ -33,5 +34,10 @@ public class SpringGetInterface {
 //        ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
 //        Map<String, Filter> beansOfType = applicationContext.getBeansOfType(Filter.class);
 //        System.out.println("接口实现类 = " +beansOfType.toString());
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
     }
 }

@@ -1,9 +1,13 @@
 package com.qingchen.study.threadLocal;
 
+import com.qingchen.study.proxy.cglib.ProxyFactory;
 import org.junit.Test;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName ThreadLocalTest
@@ -13,7 +17,10 @@ import java.util.Objects;
  **/
 public class ThreadLocalTest {
 
-    private static final ThreadLocal threadLocal = ThreadLocal.withInitial(null);
+    //private static final ThreadLocal threadLocal = ThreadLocal.withInitial(null);
+
+
+    private static final ThreadLocal<String> inheritableThreadLocal = InheritableThreadLocal.withInitial(()->"1111");
 
     //懒加载  第一次赋值的时候才会去创建map
 //    public void set(T value) {
@@ -36,7 +43,25 @@ public class ThreadLocalTest {
 
     @Test
     public void myTest(){
+
         new Object();
         new HashMap<>();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+
+        System.out.println("main = " + inheritableThreadLocal.get());
+
+        CompletableFuture<Object> objectCompletableFuture = CompletableFuture.supplyAsync(() -> {
+            System.out.println("child = " + inheritableThreadLocal.get());
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
+
+        objectCompletableFuture.join();
     }
 }

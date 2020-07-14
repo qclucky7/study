@@ -1,7 +1,12 @@
 package com.qingchen.tdd;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName UserDTO
@@ -11,6 +16,7 @@ import java.util.Date;
  **/
 public class UserDTO {
 
+
      @NotBlank(message = "{message.username}")
      private String userName;
      @NotBlank(message = "{message.password}")
@@ -18,12 +24,23 @@ public class UserDTO {
      @NotBlank(message = "{message.phone}")
      //@Pattern(regexp = "^1\\d{10}$", message = "请输入正确手机号")
      private String phone;
+     @NotEmpty(message = "不能为空")
+    //@Pattern(regexp = "^1\\d{10}$", message = "请输入正确手机号")
+    private List<String> tests;
      //@NotBlank(message = "邮箱不能为空")
      //@Email(message = "请输入正确的邮箱")
      private String email;
      //@NotNull(message = "出生日期不能为空")
      //@Past(message = "错误出生日期")
      private Date birthDate;
+
+    public List<String> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<String> tests) {
+        this.tests = tests;
+    }
 
     public Date getBirthDate() {
         return birthDate;

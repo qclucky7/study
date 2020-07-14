@@ -45,6 +45,9 @@ public class GlobalException {
             }
 
             return Result.ofFail(HttpStatus.error_no_data.getStatus(), stringBuilder.toString());
+        } else if (exception instanceof com.qingchen.study.utils.mybatis.GlobalException){
+
+            return Result.ofFail(HttpStatus.error_no_data.getStatus(), exception.getMessage());
         }
         exception.printStackTrace();
 

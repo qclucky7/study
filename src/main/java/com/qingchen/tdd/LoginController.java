@@ -7,6 +7,9 @@ import com.qingchen.study.vlife.ErrorCodeException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URL;
+
 /**
  * @ClassName LoginController
  * @description:
