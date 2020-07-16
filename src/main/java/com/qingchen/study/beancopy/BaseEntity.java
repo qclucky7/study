@@ -14,12 +14,6 @@ public abstract class BaseEntity implements Serializable {
     private long createTime;
     private long updateTime;
 
-    public BaseEntity(long id, long createTime, long updateTime) {
-        this.id = id;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
-
     public long getId() {
         return id;
     }

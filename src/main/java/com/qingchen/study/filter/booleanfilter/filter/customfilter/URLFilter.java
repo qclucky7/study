@@ -5,6 +5,7 @@ import com.qingchen.study.filter.booleanfilter.filter.FilterChain;
 import com.qingchen.study.filter.booleanfilter.common.Privilege;
 import com.qingchen.study.filter.booleanfilter.filterEntity.Role;
 import com.qingchen.study.filter.booleanfilter.annotation.InitializeOrder;
+import org.springframework.stereotype.Component;
 
 /**
  * @ClassName URLFilter
@@ -13,6 +14,7 @@ import com.qingchen.study.filter.booleanfilter.annotation.InitializeOrder;
  * @create: 2020-03-29 14:17
  **/
 @InitializeOrder(value = 1)
+@Component
 public class URLFilter implements Filter<Role> {
 
     @Override

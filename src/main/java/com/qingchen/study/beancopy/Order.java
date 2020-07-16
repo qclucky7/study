@@ -19,7 +19,6 @@ public class Order extends BaseEntity{
     private Goods goods;
 
     public Order(long id, long createTime, long updateTime, Long price, String address, String userId, String phone, Goods goods) {
-        super(id, createTime, updateTime);
         this.price = price;
         this.address = address;
         this.userId = userId;

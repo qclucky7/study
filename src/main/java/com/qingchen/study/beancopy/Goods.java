@@ -11,8 +11,7 @@ public class Goods extends BaseEntity{
     private String goodName;
     private String url;
 
-    public Goods(long id, long createTime, long updateTime, String goodName, String url) {
-        super(id, createTime, updateTime);
+    public Goods(String goodName, String url) {
         this.goodName = goodName;
         this.url = url;
     }
