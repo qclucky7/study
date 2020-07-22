@@ -1,14 +1,11 @@
 package com.qingchen.study;
 
-import com.qingchen.study.elasticsearch.ArticleRepository;
-import com.qingchen.study.elasticsearch.entity.Article;
 import com.qingchen.study.properties.PropertiesTest;
 import com.qingchen.study.utils.IdUtils;
 import com.qingchen.study.utils.JavaUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 
 @SpringBootTest
 class StudyApplicationTests {

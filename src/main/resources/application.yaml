@@ -7,12 +7,6 @@ spring:
     multipart:
       max-file-size: 500MB
       max-request-size: 500MB
-  data:
-    elasticsearch:
-      cluster-nodes: 127.0.0.1:9300
-      repositories:
-        enabled: true
-      cluster-name: my-application
 
 
 webFilter:
