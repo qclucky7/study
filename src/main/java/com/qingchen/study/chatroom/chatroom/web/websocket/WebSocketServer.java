@@ -5,6 +5,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.util.concurrent.Future;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -70,7 +71,7 @@ public class WebSocketServer implements InitializingBean, DisposableBean {
 			channelFuture.channel().closeFuture().sync();
 
 		} catch (Exception e){
-			e.printStackTrace();
+			logger.error("Netty Websocket服务器启动失败 {}", ExceptionUtils.getStackTrace(e));
 		} finally {
 			bossGroup.shutdownGracefully();
 			workGroup.shutdownGracefully();
@@ -95,6 +96,7 @@ public class WebSocketServer implements InitializingBean, DisposableBean {
 	 */
 	@Override
 	public void destroy(){
+		System.out.println("容器销毁执行................");
 		channelFuture.channel().close();
 		Future<?> bossGroupFuture = bossGroup.shutdownGracefully();
 		Future<?> workerGroupFuture = workGroup.shutdownGracefully();
