@@ -1,6 +1,7 @@
 package com.qingchen.springInterface.proxy;
 
 
+import com.qingchen.springInterface.proxy.test.OperateTest;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.aop.framework.ProxyFactory;
@@ -8,6 +9,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @ClassName RoutingBeanProxyFactory
@@ -16,8 +18,6 @@ import java.util.Map;
  * @create: 2020-07-16 11:19
  **/
 public class RoutingBeanProxyFactory {
-
-    private static boolean sign = true;
 
     public static Object createProxy(Class<?> type, Map<String, ?> candidates) {
         ProxyFactory proxyFactory = new ProxyFactory();
@@ -28,7 +28,7 @@ public class RoutingBeanProxyFactory {
 
     static class VersionRoutingMethodInterceptor implements MethodInterceptor {
 
-        private Object targetObject;
+        private Map<String, Object> cacheMap = new ConcurrentHashMap<>(2);
 
         public VersionRoutingMethodInterceptor(Class<?> clazz, Map<String, ?> beans) {
 
@@ -38,24 +38,24 @@ public class RoutingBeanProxyFactory {
 
             System.out.println("VersionRoutingMethodInterceptor beans = " + beans.toString());
 
-            Object o = beans.get("operateImplV1");
-            Object o1 = beans.get("operateImplV2");
+            beans.keySet().forEach(className -> {
+                              if (className.toLowerCase().contains("v1")){
+                                  cacheMap.put("1.0", beans.get(className));
+                              } else {
+                                  cacheMap.put("2.0", beans.get(className));
+                              }
+                          });
 
-            System.out.println("o = " + o);
-            System.out.println("o1 = " + o1);
-
-            if (sign){
-                this.targetObject = o1;
-            } else {
-                this.targetObject = o;
-            }
         }
 
         @Override
         public Object invoke(MethodInvocation invocation) throws Throwable {
             System.out.println(invocation.getMethod());
             System.out.println(Arrays.toString(invocation.getArguments()));
-            return invocation.getMethod().invoke(this.targetObject, invocation.getArguments());
+            if ("1.0".equals(OperateTest.versions.get())){
+                return invocation.getMethod().invoke(cacheMap.get("1.0"), invocation.getArguments());
+            }
+            return invocation.getMethod().invoke(cacheMap.get("2.0"), invocation.getArguments());
         }
 
     }

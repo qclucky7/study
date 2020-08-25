@@ -1,4 +1,4 @@
-package com.qingchen.springInterface.proxy;
+package com.qingchen.springInterface.proxy.test;
 
 /**
  * @ClassName IOperate

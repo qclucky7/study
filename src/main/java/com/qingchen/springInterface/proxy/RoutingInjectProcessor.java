@@ -5,6 +5,7 @@ import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
@@ -17,6 +18,7 @@ import java.util.Map;
  * @create: 2020-07-16 11:40
  **/
 @Component
+@Order(value = Integer.MIN_VALUE)
 public class RoutingInjectProcessor implements BeanPostProcessor {
 
     @Autowired
@@ -39,7 +41,7 @@ public class RoutingInjectProcessor implements BeanPostProcessor {
                             + " @Class " + targetCls.getName());
                 }
                 try {
-                    this.handleRoutingInjected(field, bean, field.getType());
+                    return this.handleRoutingInjected(field, bean, field.getType());
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -54,7 +56,7 @@ public class RoutingInjectProcessor implements BeanPostProcessor {
      * @param type
      * @throws IllegalAccessException
      */
-    private void handleRoutingInjected(Field field, Object bean, Class<?> type) throws IllegalAccessException {
+    private Object handleRoutingInjected(Field field, Object bean, Class<?> type) throws IllegalAccessException {
         System.out.println("Field = " + field.toString());
         System.out.println("bean = " + bean.toString());
         System.out.println("Class = " + type.toString());
@@ -71,6 +73,6 @@ public class RoutingInjectProcessor implements BeanPostProcessor {
         } else {
             throw new IllegalArgumentException("Find more than 2 beans for type: " + type);
         }
-
+        return bean;
     }
 }

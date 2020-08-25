@@ -8,7 +8,17 @@ package com.qingchen.study.decoration.strategy;
  **/
 public interface EncryptionStrategy {
 
+    /**
+     * 加密
+     * @param data
+     * @return
+     */
     String encrypt(String data);
 
+    /**
+     * 解密
+     * @param data
+     * @return
+     */
     String decrypt(String data);
 }

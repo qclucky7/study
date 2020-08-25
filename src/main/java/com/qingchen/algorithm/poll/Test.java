@@ -18,7 +18,8 @@ public class Test {
         Poll poll = new Poll();
 
         for (int i = 0; i < 20 ; i++) {
-            pool.execute(() -> System.out.println(Thread.currentThread().getId() + "----" + poll.getProxy1() ));
+            pool.execute(() -> System.out.println(Thread.currentThread().getId() + "----" + poll.getProxy() ));
         }
     }
+
 }

@@ -1,18 +1,18 @@
-package com.qingchen.springInterface.proxy;
+package com.qingchen.springInterface.proxy.test;
 
 import org.springframework.stereotype.Component;
 
 /**
- * @ClassName OperateImplV2
+ * @ClassName OperateImplV1
  * @description:
  * @author: WangChen
  * @create: 2020-07-16 11:03
  **/
 @Component
-public class OperateImplV2 implements IOperate{
+public class OperateImplV1 implements IOperate{
 
     @Override
     public void operate() {
-        System.out.println("v2版本执行!");
+        System.out.println("v1版本执行!");
     }
 }
