@@ -1,10 +1,7 @@
 package com.qingchen.tdd;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 import java.util.List;
 

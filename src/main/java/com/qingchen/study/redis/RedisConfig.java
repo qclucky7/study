@@ -14,6 +14,9 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -135,6 +138,28 @@ public class RedisConfig{
 
         return jackson2JsonRedisSerializer;
     }
+
+
+    /**
+     * redis发布订阅配置
+     * @return
+     */
+    @Bean
+    public MessageListenerAdapter listenerAdapter() {
+        MessageListenerAdapter messageListenerAdapter = new MessageListenerAdapter(new MyRedisChannelListener());
+        messageListenerAdapter.setSerializer(redisSerializer());
+        return messageListenerAdapter;
+    }
+
+    @Bean
+    public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.addMessageListener(listenerAdapter, new PatternTopic("myTopic"));
+
+        return container;
+    }
+
 
 
 }

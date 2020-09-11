@@ -2,6 +2,7 @@ package com.qingchen.study.redis;
 
 import com.qingchen.study.spring.myconfig.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class RedisTest {
 
     @Autowired
     private RedisBit redisBit;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("/user/{id}")
     public void test(@PathVariable("id") Integer id){
@@ -77,5 +81,16 @@ public class RedisTest {
     @GetMapping("/bitField/{field}")
     public void testBitField(@PathVariable String field){
         redisBit.bitField(field);
+    }
+
+
+    @GetMapping(value = "/test_topic")
+    public void testTopic(){
+
+        for (int i = 0; i < 20  ; i++) {
+            redisTemplate.convertAndSend("myTopic", "我来了redis消息！！ " + i);
+        }
+
+
     }
 }

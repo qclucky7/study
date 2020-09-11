@@ -1,5 +1,6 @@
 package com.qingchen.study.streamtest;
 
+import com.google.gson.internal.$Gson$Preconditions;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -128,6 +129,59 @@ public class StreamTest {
 
         //总结 比如map, filter等我就不介绍了, 在例子上面添加实现相关功能就可以
 
+    }
+
+
+    public void test02(){
+
+        //造数据 这里就用罗翔老师得法外狂徒吧！
+        List<Money> expensesRecords = Arrays.asList(
+                new Money(1, 1, 2),
+                new Money(10, 10, 20),
+                new Money(10, 15, 25)
+        );
+
+
+
+    }
+
+    static class Money{
+
+        private int money;
+
+        private int money1;
+
+        private int money2;
+
+        public Money(int money, int money1, int money2) {
+            this.money = money;
+            this.money1 = money1;
+            this.money2 = money2;
+        }
+
+        public int getMoney() {
+            return money;
+        }
+
+        public void setMoney(int money) {
+            this.money = money;
+        }
+
+        public int getMoney1() {
+            return money1;
+        }
+
+        public void setMoney1(int money1) {
+            this.money1 = money1;
+        }
+
+        public int getMoney2() {
+            return money2;
+        }
+
+        public void setMoney2(int money2) {
+            this.money2 = money2;
+        }
     }
 
 }
