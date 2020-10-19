@@ -37,7 +37,7 @@ public class WindowQpsController {
      * 统计指针
      */
     private int timeCurPosition;
-    private int timeSlicesConstant = timeSlices.length - 1 ;
+    private int timeSlicesConstant = timeSlices.length - 1;
 
     /**
      * 统计指标
@@ -70,22 +70,23 @@ public class WindowQpsController {
     }
 
     public boolean isPass() {
+
         long curTime = System.currentTimeMillis();
+
         synchronized (lock) {
             if (curTime >= period + accessWindow[curPosition]) {
                 accessWindow[curPosition++] = curTime;
 
-                if (timeSlices[timeCurPosition].getStartTime() <= curTime
-                        && curTime <= timeSlices[timeCurPosition].getEndTime()) {
+                if (timeSlices[timeCurPosition].getStartTime() <= curTime && curTime <= timeSlices[timeCurPosition].getEndTime()) {
                     timeSlices[timeCurPosition].passIncrement();
                 } else {
                     timeCurPosition++;
                     if (timeCurPosition == timeSlices.length) {
                         //数组向左滑动
-                        for (int i = 0; i < timeSlicesConstant ; i++) {
+                        for (int i = 0; i < timeSlicesConstant; i++) {
                             timeSlices[i] = timeSlices[i + 1];
                         }
-                        timeSlices[timeSlicesConstant] = new TimeSlice(curTime ,
+                        timeSlices[timeSlicesConstant] = new TimeSlice(curTime,
                                 curTime + statisticalIndicators);
                         //达到阈值后固定索引位置
                         timeCurPosition = timeSlicesConstant;
@@ -96,21 +97,19 @@ public class WindowQpsController {
                                 .setStartTime(endTime)
                                 .setEndTime(endTime + statisticalIndicators);
                     }
-
                 }
 
                 curPosition = curPosition % limit;
                 return true;
             } else {
-                if (timeSlices[timeCurPosition].getStartTime() <= curTime
-                        && curTime <= timeSlices[timeCurPosition].getEndTime()) {
+                if (timeSlices[timeCurPosition].getStartTime() <= curTime && curTime <= timeSlices[timeCurPosition].getEndTime()) {
                     timeSlices[timeCurPosition].blockIncrement();
                 }
                 return false;
             }
         }
-    }
 
+    }
 
     public TimeSlice[] getTimeSlices() {
         return this.timeSlices;

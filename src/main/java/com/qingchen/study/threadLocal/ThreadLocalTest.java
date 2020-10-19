@@ -1,11 +1,8 @@
 package com.qingchen.study.threadLocal;
 
-import com.qingchen.study.proxy.cglib.ProxyFactory;
 import org.junit.Test;
-import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 

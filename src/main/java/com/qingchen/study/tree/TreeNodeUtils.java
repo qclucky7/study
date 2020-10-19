@@ -1,5 +1,7 @@
 package com.qingchen.study.tree;
 
+import com.qingchen.study.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,6 +57,19 @@ public class TreeNodeUtils {
                 treeNode.setTreeNodes(getNodeChild(list, treeNodes, treeNode.getId()));
                 treeNodeList.add(treeNode);
             }
+        }
+        return Collections.unmodifiableList(treeNodeList);
+    }
+
+    public static List<CategoryTree> getNodeChild(List<CategoryTree> list, List<CategoryTree> treeNodeList, String parentTitle){
+
+        for (CategoryTree treeNode : list) {
+            if (parentTitle == treeNode.getParentTitle()){
+                List<CategoryTree> treeNodes = new ArrayList<>();
+                treeNode.setChildTrees(getNodeChild(list, treeNodes, treeNode.getTitle()));
+                treeNodeList.add(treeNode);
+            }
+
         }
         return Collections.unmodifiableList(treeNodeList);
     }

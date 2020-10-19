@@ -8,7 +8,7 @@ import org.junit.Test;
  * @author: WangChen
  * @create: 2020-08-19 15:33
  **/
-public class ProxyFactoryTest {
+public class CglibMethodInterceptorTest {
 
 
     @Test

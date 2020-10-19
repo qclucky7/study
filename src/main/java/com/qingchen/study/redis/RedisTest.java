@@ -2,6 +2,9 @@ package com.qingchen.study.redis;
 
 import com.qingchen.study.spring.myconfig.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,4 +96,13 @@ public class RedisTest {
 
 
     }
+
+
+    public void test04(){
+
+        List<Object> objects = redisTemplate.executePipelined((RedisCallback<String>) redisConnection -> {
+            return null;
+        });
+    }
+
 }
