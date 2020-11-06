@@ -1,6 +1,7 @@
 package com.qingchen.study.redis;
 
 import com.qingchen.study.spring.myconfig.User;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.time.Duration;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @ClassName RedisTest
@@ -90,11 +91,11 @@ public class RedisTest {
     @GetMapping(value = "/test_topic")
     public void testTopic(){
 
-        for (int i = 0; i < 20  ; i++) {
-            redisTemplate.convertAndSend("myTopic", "我来了redis消息！！ " + i);
-        }
+//        for (int i = 0; i < 20  ; i++) {
+//            redisTemplate.convertAndSend("myTopic", "我来了redis消息！！ " + i);
+//        }
 
-
+        redisTemplate.opsForValue().set("testKey", "1111", 10, TimeUnit.SECONDS);
     }
 
 
@@ -103,6 +104,24 @@ public class RedisTest {
         List<Object> objects = redisTemplate.executePipelined((RedisCallback<String>) redisConnection -> {
             return null;
         });
+    }
+
+    @Test
+    public void test33(){
+
+        Map<String, Integer> map = new HashMap<>();
+
+        map.putIfAbsent("123", 0);
+        map.computeIfPresent("123", (w, prev) -> prev + 1);
+        map.computeIfPresent("123", (w, prev) -> prev + 1);
+        map.computeIfPresent("123", (w, prev) -> prev + 1);
+
+
+        System.out.println(map.toString());
+
+        System.out.println(Duration.ofSeconds(30).toMillis());
+
+
     }
 
 }

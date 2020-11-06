@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8888
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -35,7 +35,7 @@ spring:
     # 连接工厂使用的数据库索引
     database: 0
     # Redis服务器主机
-    host: 127.0.0.1
+    host: 123.57.84.238
     # 登录redis服务器的密码
     password:
     # redis服务器端口
@@ -45,11 +45,11 @@ spring:
     lettuce:
       pool:
         # 池在给定时间可以分配的最大连接数。使用负值无限制
-        max-active: 1000
+        max-active: 10
         # 池中“空闲”连接的最大数量。使用负值表示无限数量的空闲连接。
-        max-idle: 500
+        max-idle: 5
         # 目标为保持在池中的最小空闲连接数。这个设置只有在正面的情况下才有效果。
-        min-idle: 100
+        min-idle: 5
         # # 等待可用连接的最大时间，负数为不限制
         max-wait: 500ms
   mail:
@@ -65,21 +65,21 @@ spring:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
         debug: true
-  rabbitmq:
-    host: 123.57.84.238
-    port: 5672
-    username: wangchen
-    password: wangchen
-    virtual-host: /
-    #确认消息已发送到交换机(Exchange)
-    #publisher-confirms: true
-    #确认消息已发送到队列(Queue)
-    #publisher-returns: true
-    #手动提交
-    listener:
-      simple:
-        acknowledge-mode: manual
-        default-requeue-rejected: false
+#  rabbitmq:
+#    host: 123.57.84.238
+#    port: 5672
+#    username: wangchen
+#    password: wangchen
+#    virtual-host: /
+#    #确认消息已发送到交换机(Exchange)
+#    #publisher-confirms: true
+#    #确认消息已发送到队列(Queue)
+#    #publisher-returns: true
+#    #手动提交
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#        default-requeue-rejected: false
 
 
 

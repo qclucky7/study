@@ -36,6 +36,8 @@ public class ProxyFactory {
     }
 
     public static void main(String[] args) {
+        // 让代理对象的class文件写入到磁盘
+        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         ProxyFactory proxyFactory = new ProxyFactory(new IProxyImp());
         IProxy proxyInstance = (IProxy) proxyFactory.getProxyInstance();
         proxyInstance.doSomething();
