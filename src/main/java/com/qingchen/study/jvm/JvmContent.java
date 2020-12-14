@@ -42,7 +42,10 @@ public class JvmContent {
     // jstat -gccause pid 1000 查看gc原因
 
     //生成dump文件的命令：
-    //jmap -dump:format=b,file=20170307.dump 16048
+    //jmap -dump:format=b,file=20170307.dump pid
+    //jmap -dump:format=b,file=heapdump.hprof pid
+    //启动命令
+    //nohup java -Xms512m -Xmx512m -jar quartz-1.0.0.jar
 
 
     //jvisualvm 查看jvm监控

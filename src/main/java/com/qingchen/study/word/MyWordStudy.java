@@ -1,5 +1,7 @@
 package com.qingchen.study.word;
 
+import org.junit.Test;
+
 /**
  * @ClassName MyWordStudy
  * @description:
@@ -16,4 +18,12 @@ public class MyWordStudy {
      * @section部分
      * @prepares准备
      */
+
+    @Test
+    public void test9(){
+
+        int modifiers = MyWordStudy.class.getModifiers();
+
+        System.out.println(modifiers);
+    }
 }

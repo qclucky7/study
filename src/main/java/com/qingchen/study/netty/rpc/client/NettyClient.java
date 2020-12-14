@@ -42,7 +42,7 @@ public class NettyClient {
                 }
 
         );
-    };
+    }
 
     private static void init() {
         clientHandler = new NettyClientHandler();

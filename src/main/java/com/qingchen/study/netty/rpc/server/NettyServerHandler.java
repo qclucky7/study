@@ -14,6 +14,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println("msg = " + msg);
         if (msg.toString().startsWith("ServiceTest#sendMessage#")){
             String result = new ServiceTestImp().sendMessage(msg.toString().substring(msg.toString().lastIndexOf("#") + 1));
             ctx.writeAndFlush(result);

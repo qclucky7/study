@@ -20,15 +20,15 @@ import io.netty.handler.codec.string.StringEncoder;
  **/
 public class NettyServer {
 
-    public static void startServer(String hostName){
+    public static void startServer(String hostName) {
         startServer0(hostName, 8080);
     }
 
-    public static void startServer(String hostName, int port){
+    public static void startServer(String hostName, int port) {
         startServer0(hostName, port);
     }
 
-    private static void startServer0(String hostName, int port){
+    private static void startServer0(String hostName, int port) {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workGroup = new NioEventLoopGroup();
@@ -36,29 +36,27 @@ public class NettyServer {
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workGroup)
-                           .channel(NioServerSocketChannel.class)
-                           .childHandler(new ChannelInitializer<SocketChannel>() {
-                               @Override
-                               protected void initChannel(SocketChannel socketChannel) throws Exception {
-                                   ChannelPipeline pipeline = socketChannel.pipeline();
-                                   pipeline.addLast(new StringDecoder());
-                                   pipeline.addLast(new StringEncoder());
-                                   pipeline.addLast(new NettyServerHandler());
+                    .channel(NioServerSocketChannel.class)
+                    .childHandler(new ChannelInitializer<SocketChannel>() {
+                        @Override
+                        protected void initChannel(SocketChannel socketChannel) throws Exception {
+                            ChannelPipeline pipeline = socketChannel.pipeline();
+                            pipeline.addLast(new StringDecoder());
+                            pipeline.addLast(new StringEncoder());
+                            pipeline.addLast(new NettyServerHandler());
 
-                               }
-                           });
+                        }
+                    });
             ChannelFuture channelFuture = serverBootstrap.bind(hostName, port).sync();
             channelFuture.channel().closeFuture().sync();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             bossGroup.shutdownGracefully();
             workGroup.shutdownGracefully();
 
         }
-
-
 
     }
 }
